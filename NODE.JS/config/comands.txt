@@ -31,3 +31,9 @@ npm list
 npm update async
 
 npm publish NomeDoPacote
+
+------------------------------
+pacotes globais
+------------------------------
+
+npm install -g gulp
