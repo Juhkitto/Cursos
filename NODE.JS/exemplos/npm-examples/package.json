@@ -1,0 +1,28 @@
+{
+  "name": "working-with-npm",
+  "version": "1.0.0",
+  "description": "An example for how to use npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm.",
+    "how",
+    "to",
+    "use",
+    "npm.",
+    "school",
+    "of",
+    "net"
+  ],
+  "author": "João Pacheco",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.2",
+    "lodash": "^4.17.0"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.0"
+  }
+}

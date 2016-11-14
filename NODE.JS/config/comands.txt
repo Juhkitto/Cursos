@@ -1,0 +1,33 @@
+==============================================
+
+GIT config 
+
+------------------------------
+
+git config --global user.name "joao pacheco"
+git config --global user.email "juhkittopacheco@gmail.com"
+
+
+==============================================
+
+npm config 
+
+------------------------------
+
+npm init
+
+npm adduser  SeuNome
+
+npm install async
+
+npm install async --save
+
+npm install lodash --save-dev
+
+npm remove lodash
+
+npm list
+
+npm update async
+
+npm publish NomeDoPacote
