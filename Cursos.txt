@@ -3,3 +3,13 @@
 =============================================================
 
 School of Net - https://www.schoolofnet.com/curso-iniciando-com-nodejs/?key=1479133327141
+
+=============================================================
+                          ANGULAR.js
+=============================================================
+Código top - https://www.youtube.com/watch?v=Zc_khXO_lcg&list=PLs8HfGdP-opu8nNOP6gnNdXrxE0n_V7s0
+
+=============================================================
+                          WEBPACK
+=============================================================
+JS Channel - https://www.youtube.com/watch?v=dHWyO8U0zhc&list=PLhxF6V44XvXR05fSeNf38-67k3FZK2KLI

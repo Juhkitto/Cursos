@@ -1,0 +1,10 @@
+===============================================
+NODE.js - https://nodejs.org/en/
+
+GIT - https://www.git-scm.com/
+
+NPM - https://www.npmjs.com/
+
+Expressjs - http://expressjs.com/
+
+===============================================
