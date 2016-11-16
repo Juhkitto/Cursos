@@ -1,10 +1,6 @@
 ===============================================
-NODE.js - https://nodejs.org/en/
+ANGULAR - https://angularjs.org/
 
-GIT - https://www.git-scm.com/
-
-NPM - https://www.npmjs.com/
-
-Expressjs - http://expressjs.com/
+JSON - http://json.org/
 
 ===============================================

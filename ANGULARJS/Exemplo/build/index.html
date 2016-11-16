@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="Aula1">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- <link rel="stylesheet" href=""> -->
+		<script src="../src/js/angular.min.js" type="text/javascript"></script>
+		<script>
+			angular.module('Aula1',[]).controller('MeuPrimeiroController', function($scope){
+				$scope.mensagemHelloWorld = "Ola world";
+			});
+		</script>
+	</head>
+	<body ng-controller="MeuPrimeiroController">
+		{{mensagemHelloWorld}}
+	</body>
+</html>
