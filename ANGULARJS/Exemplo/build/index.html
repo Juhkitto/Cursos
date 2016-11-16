@@ -1,17 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-app="Aula1">
+<html lang="pt-br" ng-app="Aula4">
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <!-- Bootstrap -->
+   		<link href="../src/css/bootstrap.min.css" rel="stylesheet">
+   		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	    <script src="../src/js/jquery.min.js"></script>
+	    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	    <script src="../src/js/bootstrap.min.js"></script>
+
+		<title>Aula 4</title>
 		<!-- <link rel="stylesheet" href=""> -->
 		<script src="../src/js/angular.min.js" type="text/javascript"></script>
 		<script>
-			angular.module('Aula1',[]).controller('MeuPrimeiroController', function($scope){
-				$scope.mensagemHelloWorld = "Ola world";
+			angular.module('Aula4',[]).controller('MeuTerceiroController', function($scope){
+				
+				$scope.nomelistaPessoas = "Lista de pessoas";
+				$scope.listaPessoas = [];
+
+				$scope.pessoa1 = {
+									"nome":"Roger",
+									"idade":34,
+									"pais":"Brasil",
+								 };
+
+				$scope.pessoa2 = {
+									"nome":"João",
+									"idade":20,
+									"pais":"Brasil",
+								 };
+
+				$scope.pessoa3 = {
+									"nome":"João",
+									"idade":20,
+									"pais":"Brasil",
+								 };
+
+				$scope.pessoa4 = {
+									"nome":"João",
+									"idade":20,
+									"pais":"Brasil",
+								 };				 
+
+				$scope.listaPessoas.push($scope.pessoa1);				 	
+				$scope.listaPessoas.push($scope.pessoa2);				 	
+				$scope.listaPessoas.push($scope.pessoa3);				 	
+				$scope.listaPessoas.push($scope.pessoa4);				 	
 			});
 		</script>
 	</head>
-	<body ng-controller="MeuPrimeiroController">
-		{{mensagemHelloWorld}}
+	<body ng-controller="MeuTerceiroController">
+		<div class="container">
+			<div class="jumbotron">
+			  <h1>Aula 4</h1>
+			  <p>...</p>
+			  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading">{{nomelistaPessoas}}</div>
+			  <div class="panel-body">
+			   	<ul>
+			   		<li ng-repeat="pessoa in listaPessoas">{{ pessoa.nome }}</li>
+			   	</ul>
+			  </div>
+			</div>
+		</div>
+
 	</body>
 </html>
+
+
