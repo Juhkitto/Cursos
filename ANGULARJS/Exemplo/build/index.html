@@ -15,7 +15,7 @@
 		<!-- <link rel="stylesheet" href=""> -->
 		<script src="../src/js/angular.min.js" type="text/javascript"></script>
 		<script>
-			angular.module('Aula5',[]).controller('MeuQuartoController', function($scope){
+			angular.module('Aula5',[]).controller('MeuController', function($scope, $http ){
 				
 				$scope.nomelistaPessoas = "Lista de pessoas";
 				$scope.listaPessoas = [];
@@ -72,15 +72,31 @@
 					$scope.listaPessoas = $scope.listaPessoasNova;
 				}
 
+				$scope.carregarPessoas = function(){
+					$scope.carregandoPessoas = true;
+					$http({
+						url: 'pessoas.json',
+						method: 'GET'
+					}).then(function(resposta){
+						$scope.listaPessoas  = resposta.data;
+					},function(resposta){
+						alert('algum erro');
+					}).finally(function(){
+						$scope.carregandoPessoas = false;
+					})
+				}
+
 			});
 		</script>
 	</head>
-	<body ng-controller="MeuQuartoController">
+	<body ng-controller="MeuController">
 		<div class="container">
 			<div class="jumbotron">
 			  <h1>Aula 4</h1>
 			  <p>...</p>
 			  <p><a class="btn btn-primary btn-lg" href="#" ng-click="exibirFormularioInclusao = true;" role="button">Incluir Pessoa</a></p>
+			  <p><a class="btn btn-primary btn-lg" href="#" ng-click="carregarPessoas();" ng-disabled="$scope.carregandoPessoas" role="button">carregar Pessoa</a></p>
+
 			</div>
 			<div class="panel panel-default" ng-show="exibirFormularioInclusao">
 			  <div class="panel-heading">Inclusão de pessoa</div>
