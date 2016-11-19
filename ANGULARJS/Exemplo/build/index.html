@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-app="Aula5">
+<html lang="pt-br" ng-app="Curso">
 	<head>
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,44 +15,17 @@
 		<!-- <link rel="stylesheet" href=""> -->
 		<script src="../src/js/angular.min.js" type="text/javascript"></script>
 		<script>
-			angular.module('Aula5',[]).controller('MeuController', function($scope, $http ){
+			angular.module('Curso',[]).controller('MeuController', function($scope, $http ){
 				
-				$scope.nomelistaPessoas = "Lista de pessoas";
-				$scope.listaPessoas = [];
+				$scope.nomelistaPessoas = "Lista de buscas";
+				$scope.listaBusca = [];
 
-				$scope.pessoa1 = {
-									"nome":"Roger",
-									"idade":34,
-									"pais":"Brasil",
-								 };
-
-				$scope.pessoa2 = {
-									"nome":"João",
-									"idade":20,
-									"pais":"Brasil",
-								 };
-
-				$scope.pessoa3 = {
-									"nome":"Matheus",
-									"idade":20,
-									"pais":"Brasil",
-								 };
-
-				$scope.pessoa4 = {
-									"nome":"Vitor",
-									"idade":20,
-									"pais":"Brasil",
-								 };				 
-
-				$scope.listaPessoas.push($scope.pessoa1);				 	
-				$scope.listaPessoas.push($scope.pessoa2);				 	
-				$scope.listaPessoas.push($scope.pessoa3);				 	
-				$scope.listaPessoas.push($scope.pessoa4);
+				$scope.termoBusca = "Brasil";
 
 				$scope.exibirFormularioInclusao = false;
 
-				$scope.incluirPessoa = function() {
-					$scope.listaPessoas.push({
+				$scope.incluirBusca = function() {
+					$scope.listaBusca.push({
 												nome: $scope.formInclusao.nome, 
 												idade: $scope.formInclusao.idade, 
 												pais: $scope.formInclusao.pais 
@@ -65,24 +38,27 @@
 				}
 
 				$scope.excluirPessoa = function(sNome){
-					$scope.listaPessoasNova = $scope.listaPessoas.filter(
+					$scope.listaBuscaNova = $scope.listaBusca.filter(
 												function(pessoa){ 
 													return pessoa.nome != sNome;
 												});
-					$scope.listaPessoas = $scope.listaPessoasNova;
+					$scope.listaBusca = $scope.listaBuscaNova;
 				}
 
-				$scope.carregarPessoas = function(){
-					$scope.carregandoPessoas = true;
-					$http({
-						url: 'pessoas.json',
-						method: 'GET'
-					}).then(function(resposta){
-						$scope.listaPessoas  = resposta.data;
+				$scope.carregarBusca = function(){
+
+					$http.jsonp("https://pt.wikipedia.org/w/api.php?action=query&prop=pageimages%7Cextracts&format=json&piprop=thumbnail%7Cname%7Coriginal&exintro=&explaintext=&redirects=yes&callback=JSON_CALLBACK&titles=" + $scope.termoBusca
+					).then(function(resposta){
+						var pages = resposta.data.query.pages;
+						var nomeprop = Object.keys(pages)[0];
+						// $scope.listaBusca.push(pages[nomeprop]);
+						$scope.listaBusca = [pages[nomeprop]];
+
+
+
+
 					},function(resposta){
 						alert('algum erro');
-					}).finally(function(){
-						$scope.carregandoPessoas = false;
 					})
 				}
 
@@ -94,42 +70,36 @@
 			<div class="jumbotron">
 			  <h1>Aula 4</h1>
 			  <p>...</p>
-			  <p><a class="btn btn-primary btn-lg" href="#" ng-click="exibirFormularioInclusao = true;" role="button">Incluir Pessoa</a></p>
-			  <p><a class="btn btn-primary btn-lg" href="#" ng-click="carregarPessoas();" ng-disabled="$scope.carregandoPessoas" role="button">carregar Pessoa</a></p>
 
+			  <div class="row">
+			  <div class="col-lg-6">
+			    <div class="input-group">
+			      <span class="input-group-btn">
+			        <button class="btn btn-default" ng-click="carregarBusca();" type="button">Buscar!</button>
+			      </span>
+			      <input type="text" class="form-control" ng-model="termoBusca" placeholder="buscar">
+			    </div><!-- /input-group -->
+			  </div><!-- /.col-lg-6 -->
 			</div>
-			<div class="panel panel-default" ng-show="exibirFormularioInclusao">
-			  <div class="panel-heading">Inclusão de pessoa</div>
-			  <div class="panel-body">
-			   	<div class="form-group">
-			   		<label>Nome</label>
-			   		<input type="text" class="form-control" ng-model="formInclusao.nome">
-			   	</div>
-			   	<div class="form-group">
-			   		<label>Idade</label>
-			   		<input type="text" class="form-control" ng-model="formInclusao.idade">
-			   	</div>
-			   	<div class="form-group">
-			   		<label>País</label>
-			   		<input type="text" class="form-control" ng-model="formInclusao.pais">
-			   	</div>
-
-				<button class="btn btn-defaut" ng-click="incluirPessoa(pessoa.nome)">Incluir</button>
-
-			  </div>
-			</div>
-			<li ng-repeat="pessoa in listaPessoas">
-				<div class="panel panel-default">
-				  <div class="panel-heading">{{ pessoa.nome }}</div>
-				  <div class="panel-body">
-				   	<ul>
-				   		<li>{{ pessoa.idade }}</li>
-				   		<li>{{ pessoa.pais }}</li>
-				   	</ul>
-				   	<button class="btn btn-defaut" ng-click="excluirPessoa(pessoa.nome)">Excluir</button>
+			
+			<li ng-repeat="busca in listaBusca">
+				<div class="row">
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <img ng-src="{{busca.thumbnail.source}}">
+				      <div class="caption">
+				        <h3>{{ busca.title }}</h3>
+				        <p>{{ busca.extract.substring(0,200) }}</p>
+				        <!-- <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
+				      </div>
+				    </div>
 				  </div>
 				</div>
 			</li>
+
+
+
+
 		</div>
 
 	</body>
