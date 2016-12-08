@@ -15,90 +15,54 @@
 		<!-- <link rel="stylesheet" href=""> -->
 		<script src="../src/js/angular.min.js" type="text/javascript"></script>
 		<script>
-			angular.module('Curso',[]).controller('MeuController', function($scope, $http ){
-				
-				$scope.nomelistaPessoas = "Lista de buscas";
-				$scope.listaBusca = [];
+			angular.module('Curso',[]).run(function($rootScope){
+				$rootScope.titulo = "Aula 7";
+			})
 
-				$scope.termoBusca = "Brasil";
+			.controller('PainelController', function($rootScope, $scope, $http ){
+				$scope.titulo = "Painel 7";
+				$scope.mudarTitulo = function(){
+					$scope.titulo = Math.round(Math.random() * 10000 , 0);
+				};
+			})
 
-				$scope.exibirFormularioInclusao = false;
-
-				$scope.incluirBusca = function() {
-					$scope.listaBusca.push({
-												nome: $scope.formInclusao.nome, 
-												idade: $scope.formInclusao.idade, 
-												pais: $scope.formInclusao.pais 
-											});
-					$scope.formInclusao = {
-											"nome":"",
-											"idade":"",
-											"pais": ""
-										  }
-				}
-
-				$scope.excluirPessoa = function(sNome){
-					$scope.listaBuscaNova = $scope.listaBusca.filter(
-												function(pessoa){ 
-													return pessoa.nome != sNome;
-												});
-					$scope.listaBusca = $scope.listaBuscaNova;
-				}
-
-				$scope.carregarBusca = function(){
-
-					$http.jsonp("https://pt.wikipedia.org/w/api.php?action=query&prop=pageimages%7Cextracts&format=json&piprop=thumbnail%7Cname%7Coriginal&exintro=&explaintext=&redirects=yes&callback=JSON_CALLBACK&titles=" + $scope.termoBusca
-					).then(function(resposta){
-						var pages = resposta.data.query.pages;
-						var nomeprop = Object.keys(pages)[0];
-						// $scope.listaBusca.push(pages[nomeprop]);
-						$scope.listaBusca = [pages[nomeprop]];
-
-
-
-
-					},function(resposta){
-						alert('algum erro');
-					})
-				}
-
+			.controller('ListaController', function($rootScope, $scope, $http ){
+				$scope.titulo = "lista";
+				$scope.lista = ['a','b','c'];
+				$scope.mudarTitulo = function(cNome){
+					$scope.titulo = cNome;
+				};
 			});
 		</script>
 	</head>
-	<body ng-controller="MeuController">
+	<body>
 		<div class="container">
 			<div class="jumbotron">
-			  <h1>Aula 4</h1>
-			  <p>...</p>
+				<h1>{{ titulo }}</h1>
+			</div>
 
-			  <div class="row">
-			  <div class="col-lg-6">
-			    <div class="input-group">
-			      <span class="input-group-btn">
-			        <button class="btn btn-default" ng-click="carregarBusca();" type="button">Buscar!</button>
-			      </span>
-			      <input type="text" class="form-control" ng-model="termoBusca" placeholder="buscar">
-			    </div><!-- /input-group -->
-			  </div><!-- /.col-lg-6 -->
+			<div class="panel panel-default" ng-controller="PainelController">
+				<div class="panel-heading">{{ titulo }}</div>
+				<div class="panel-body">
+					<button class="btn btn-primary" ng-click="mudarTitulo();">Mudar Titulo</button>
+				</div>
 			</div>
 			
-			<li>
-				<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <img ng-src="{{busca.thumbnail.source}}">
-				      <div class="caption">
-				        <h3>{{ busca.title }}</h3>
-				        <p>{{ busca.extract.substring(0,200) }}</p>
-				        <!-- <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
-				      </div>
-				    </div>
-				  </div>
+			<div class="panel panel-default" ng-controller="PainelController">
+				<div class="panel-heading">{{ titulo }}</div>
+				<div class="panel-body">	
+					<button class="btn btn-primary" ng-click="mudarTitulo();">Mudar Titulo </button>
 				</div>
-			</li>
+			</div>
 
-
-
+			<div class="panel panel-default" ng-controller="ListaController">
+				<div class="panel-heading">{{ titulo }}</div>
+				<div class="panel-body">	
+					<ul>
+						<li ng-repeat="nome in lista" ng-click="mudarTitulo(nome);">{{ nome }}</li>
+					</ul>
+				</div>
+			</div>
 
 		</div>
 
